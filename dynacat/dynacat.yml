@@ -1,0 +1,85 @@
+pages:
+  - name: HomeLab
+    columns:
+      # --- LEFT COLUMN: Calendar & News Feeds ---
+      - size: small
+        widgets:
+          - type: calendar
+            first-day-of-week: monday
+
+          - type: rss
+            limit: 10
+            collapse-after: 3
+            cache: 12h
+            feeds:
+              - url: https://selfh.st/rss/
+                title: selfh.st
+                limit: 4
+              - url: https://ciechanow.ski/atom.xml
+              - url: https://www.joshwcomeau.com/rss.xml
+                title: Josh Comeau
+              - url: https://samwho.dev/rss.xml
+              - url: https://ishadeed.com/feed.xml
+                title: Ahmad Shadeed
+
+      # --- MIDDLE COLUMN: Unified Services & Search ---
+      - size: full
+        widgets:
+          - type: search
+            autofocus: true
+
+          - type: monitor
+            cache: 1m
+            title: Services
+            sites:
+              # Proxmox VE Web UI Link
+              - title: Proxmox VE
+                url: https://192.168.1.10:8006
+                icon: si:proxmox
+
+              # Media & Photos
+              - title: Jellyfin
+                url: http://192.168.1.20:8096
+                icon: si:jellyfin
+              - title: Immich
+                url: http://192.168.1.15:2283
+                icon: si:immich
+
+              # Network & Productivity
+              - title: AdGuard Home
+                url: http://192.168.1.50:80
+                icon: si:adguard
+              - title: Paperless-NGX
+                url: http://192.168.1.30:8000
+                icon: mdi:file-document-multiple
+
+              # Storage & File Management
+              - title: File Browser
+                url: http://192.168.1.16:8082
+                icon: mdi:folder-network
+              - title: Quantum UI
+                url: http://192.168.1.17:3000
+                icon: mdi:quantum-computing
+
+              # Downloading Services
+              - title: Aria2 Engine
+                url: http://192.168.1.25:6800
+                icon: mdi:download-network
+              - title: Aria2NG Web UI
+                url: http://192.168.1.25:8081
+                icon: mdi:web
+
+      # --- RIGHT COLUMN: Proxmox Hardware Status (Glances API) ---
+      
+      - size: small
+        widgets:
+        
+        - type: server-stats
+          servers:
+            - type: local
+              name: Services
+
+        - type: reddit
+          subreddit: gamingnews
+          limit: 7
+          style: vertical-cards
