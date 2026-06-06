@@ -37,3 +37,46 @@ docker compose up -d
 Access the Immich Web UI at: `http://<YOUR-LXC-IP>:2283`
 
 ---
+
+## Migrate Google Photos to Immich 
+
+### Step 1: Export Your Photos from Google Photos
+- Open Google Takeout.
+- Deselect all services.
+- Select Google Photos only.
+- Choose:
+    - Export once
+    - ZIP format
+    - Largest archive size available (recommended)
+- Create the export.
+- Wait for Google to prepare the archive.
+- Download all generated ZIP files.
+
+
+### Step 2: Create an Immich API Key
+- Log in to Immich.
+- Go to Account Settings → API Keys.
+- Create a new API key.
+- Copy and save the key securely.
+
+### Step 3 : Download immich go and Upload Photos
+
+Download the pre-built binary for your system
+```bash
+https://github.com/simulot/immich-go/releases
+```
+Usage :
+```bash
+  immich-go upload from-google-photos \
+  --server=http://<YOUR-LXC-IP>:2283 \
+  --api-key=YOUR-IMMICH-API-KEY\
+  --sync-albums \
+  --concurrent-tasks=4-6 \
+  --client-timeout=60m \
+  --pause-immich-jobs=false \
+  --on-errors=continue \
+  --manage-raw-jpeg=StackCoverRaw \
+  --manage-burst=Stack \
+  --manage-heic-jpeg=StackCoverJPG \
+  /path/to/google/takeout-*.zip
+```
